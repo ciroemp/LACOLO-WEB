@@ -1,37 +1,24 @@
-window.addEventListener('scroll', function() {
-    const nav = document.querySelector('#mainNav');
-    if (window.scrollY > 100) {
-        nav.classList.add('scrolled');
-    } else {
-        nav.classList.remove('scrolled');
-    }
-});
+function enviarAWhatsApp(event) {
+    event.preventDefault(); // Evita que la página se recargue
 
-$(document).ready(function() {
-    $('#contactForm').on('submit', function(e) {
-        e.preventDefault(); // Evita que la página se recargue
+    // 1. Recolectar datos de los campos
+    const nombre = document.getElementById('nombre').value;
+    const email = document.getElementById('email').value;
+    const servicio = document.getElementById('servicio').options[document.getElementById('servicio').selectedIndex].text;
+    const mensaje = document.getElementById('mensaje').value;
+    
+    // 2. Tu número de teléfono (formato internacional sin el +)
+    const telefono = "50377471010"; 
 
-        let form = $(this);
-        let btn = $('#btnSubmit');
-        let responseDiv = $('#responseMessage');
+    // 3. Crear el cuerpo del mensaje
+    const mensajeFinal = `Hola! Mi nombre es ${nombre}.%0A` +
+                         `*Correo:* ${email}%0A` +
+                         `*Servicio de interés:* ${servicio}%0A` +
+                         `*Proyecto:* ${mensaje}`;
 
-        btn.prop('disabled', true).text('Enviando...');
+    // 4. Construir la URL de WhatsApp
+    const url = `https://wa.me/${telefono}?text=${mensajeFinal}`;
 
-        $.ajax({
-            url: "https://formspree.io/f/tu_id_aca", // Tu endpoint de servicio de correo
-            method: "POST",
-            data: form.serialize(),
-            dataType: "json",
-            success: function() {
-                responseDiv.fadeIn().text("¡Gracias! Tu mensaje ha sido enviado.").css("color", "green");
-                form.trigger("reset");
-            },
-            error: function() {
-                responseDiv.fadeIn().text("Hubo un error. Inténtalo de nuevo.").css("color", "red");
-            },
-            complete: function() {
-                btn.prop('disabled', false).text('Enviar Mensaje');
-            }
-        });
-    });
-});
+    // 5. Abrir en una nueva ventana
+    window.open(url, '_blank');
+}
