@@ -160,8 +160,7 @@
 
                 <div class="col-md-6 col-lg-4">
                     <div class="portfolio-item">
-                        <img src="./img/natzu.png" alt="Medalla de Honor"
-                            class="img-fluid">
+                        <img src="./img/natzu.png" alt="Medalla de Honor" class="img-fluid">
                         <div class="portfolio-overlay">
                             <div class="overlay-content">
                                 <p class="category">RAP / VFX</p>
@@ -264,18 +263,17 @@
 
                     <form id="contactForm" onsubmit="enviarAWhatsApp(event)" class="text-start">
                         <div class="mb-3">
-                            <input type="text" id="nombre"
-                                class="form-control text-white rounded-0 border-secondary"
+                            <input type="text" id="nombre" class="form-control text-white rounded-0 border-secondary"
                                 placeholder="Nombre completo" required>
                         </div>
                         <div class="mb-3">
-                            <input type="email" id="email"
-                                class="form-control text-white rounded-0 border-secondary"
+                            <input type="email" id="email" class="form-control text-white rounded-0 border-secondary"
                                 placeholder="Correo electrónico" required>
                         </div>
                         <div class="mb-3">
                             <select id="servicio"
-                                class="form-select bg-transparent text-white rounded-0 border-secondary">
+                                class="form-select bg-transparent text-white rounded-0 border-secondary" required>
+                                <option value="" disabled selected class="text-dark">Selecciona un servicio...</option>
                                 <option class="text-dark" value="grabacion">Grabación de Voz</option>
                                 <option class="text-dark" value="mezcla">Mezcla + Master</option>
                                 <option class="text-dark" value="videoclip">Music Video Pack ($450)</option>
@@ -283,8 +281,7 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <textarea id="mensaje" rows="4"
-                                class="form-control text-white rounded-0 border-secondary"
+                            <textarea id="mensaje" rows="4" class="form-control text-white rounded-0 border-secondary"
                                 placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
                         </div>
                         <div class="d-grid">

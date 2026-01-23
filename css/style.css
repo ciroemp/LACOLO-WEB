@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. VARIABLES Y CONFIGURACIÓN GLOBAL
+   ========================================================================== */
 :root {
     --bg-dark: #0D0D0D;
     --bg-black: #000000;
@@ -7,56 +10,178 @@
     --font-serif: 'Playfair Display', serif;
 }
 
-html { scroll-behavior: smooth; }
-body { background-color: var(--bg-dark); font-family: var(--font-main); color: var(--text-light); }
+* {
+    box-sizing: border-box;
+}
 
-/* Navbar */
-.navbar { transition: 0.5s ease; padding: 25px 0; }
-.navbar.scrolled { background-color: rgba(0,0,0,0.9); padding: 15px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.2); }
-.nav-link { font-size: 0.75rem; letter-spacing: 2px; }
-.btn-contacto-nav { border: 1px solid var(--text-light); color: white !important; font-size: 0.75rem; letter-spacing: 2px; padding: 8px 20px !important; }
+html { 
+    scroll-behavior: smooth; 
+}
 
-/* Hero */
-.hero { height: 100vh; position: relative; overflow: hidden; }
-.hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); filter: brightness(0.4); }
-.overlay { position: absolute; width: 100%; height: 100%; background: radial-gradient(circle, transparent 0%, var(--bg-dark) 100%); z-index: 1; }
-.main-logo { max-width: 400px; width: 85%; position: relative; z-index: 2; animation: fadeIn 2s ease-in; }
+body { 
+    background-color: var(--bg-dark); 
+    font-family: var(--font-main); 
+    color: var(--text-light); 
+    overflow-x: hidden;
+}
 
-/* Global Sections */
+/* ==========================================================================
+   2. NAVEGACIÓN (NAVBAR)
+   ========================================================================== */
+#mainNav {
+    transition: all 0.5s ease;
+    padding: 25px 0;
+    background-color: transparent;
+}
+
+/* Estado al hacer scroll */
+#mainNav.navbar-scrolled {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+    backdrop-filter: blur(10px); /* Efecto Glassmorphism */
+}
+
+.nav-link { 
+    font-size: 0.75rem; 
+    letter-spacing: 2px; 
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-link:hover { 
+    color: var(--gold-accent) !important; 
+}
+
+.btn-contacto-nav { 
+    border: 1px solid var(--text-light); 
+    color: white !important; 
+    font-size: 0.75rem; 
+    letter-spacing: 2px; 
+    padding: 8px 20px !important; 
+    transition: 0.3s;
+}
+
+.btn-contacto-nav:hover {
+    background-color: var(--gold-accent);
+    border-color: var(--gold-accent);
+    color: black !important;
+}
+
+/* ==========================================================================
+   3. HERO SECTION
+   ========================================================================== */
+.hero { 
+    height: 100vh; 
+    position: relative; 
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+}
+
+.hero-video { 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    min-width: 100%; 
+    min-height: 100%; 
+    transform: translate(-50%, -50%); 
+    filter: brightness(0.4); 
+    z-index: 0;
+}
+
+.overlay { 
+    position: absolute; 
+    width: 100%; 
+    height: 100%; 
+    background: radial-gradient(circle, transparent 0%, var(--bg-dark) 100%); 
+    z-index: 1; 
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2; /* Por encima del video y overlay */
+}
+
+.main-logo { 
+    max-width: 400px; 
+    width: 85%; 
+    animation: fadeIn 2s ease-in; 
+}
+
+/* ==========================================================================
+   4. COMPONENTES Y TARJETAS
+   ========================================================================== */
 section { scroll-margin-top: 80px; }
-.section-title { font-weight: 300; letter-spacing: 5px; text-transform: uppercase; }
-.accent-text { font-family: var(--font-serif); font-style: italic; color: var(--gold-accent); }
-.title-underline { width: 50px; height: 1px; background: var(--gold-accent); margin: 20px auto; }
+
+.section-title { 
+    font-weight: 300; 
+    letter-spacing: 5px; 
+    text-transform: uppercase; 
+}
+
+.accent-text { 
+    font-family: var(--font-serif); 
+    font-style: italic; 
+    color: var(--gold-accent); 
+}
+
+.title-underline { 
+    width: 50px; 
+    height: 1px; 
+    background: var(--gold-accent); 
+    margin: 20px auto; 
+}
+
 .text-gold { color: var(--gold-accent); }
 
-/* Cards & Packages */
-.service-card { transition: 0.3s; background: rgba(255,255,255,0.02); }
-.service-card:hover { border-color: var(--gold-accent) !important; background: rgba(255,255,255,0.05); }
+/* Service Cards */
+.service-card { 
+    transition: 0.3s ease-in-out; 
+    background: rgba(255, 255, 255, 0.02); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-.package-card { transition: 0.4s; background: var(--bg-black); }
-.featured-package { border-color: var(--gold-accent) !important; transform: scale(1.05); z-index: 2; }
-.price { font-weight: 600; color: var(--gold-accent); font-size: 3rem; margin: 20px 0; }
+.service-card:hover { 
+    border-color: var(--gold-accent) !important; 
+    background: rgba(255, 255, 255, 0.05); 
+    transform: translateY(-5px);
+}
 
-/* Portfolio */
-.portfolio-item { position: relative; overflow: hidden; aspect-ratio: 16/9; }
-.portfolio-overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.5s; }
-.portfolio-item:hover .portfolio-overlay { opacity: 1; }
+/* Package Cards */
+.package-card { 
+    transition: 0.4s; 
+    background: var(--bg-black); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-/* Form & Buttons */
-.form-control, .form-select { border-radius: 0; color: rgb(255, 255, 255); }
-.form-control:focus, .form-select:focus { background-color: transparent; color: white; border-color: var(--gold-accent); box-shadow: none; }
-.btn-gold { background-color: var(--gold-accent); color: white; border-radius: 0; letter-spacing: 3px; }
-.btn-gold:hover { background-color: #a3854a; color: white; }
+.featured-package { 
+    border-color: var(--gold-accent) !important; 
+    transform: scale(1.05); 
+    z-index: 2; 
+}
 
-/* Ajuste de Miniaturas de YouTube en el Portafolio */
-.portfolio-item {
+.price { 
+    font-weight: 600; 
+    color: var(--gold-accent); 
+    font-size: 3rem; 
+    margin: 20px 0; 
+}
+
+/* Portfolio Items */
+.portfolio-item { 
+    position: relative; 
+    overflow: hidden; 
+    aspect-ratio: 16/9; 
     background-color: #000;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .portfolio-item img {
-    opacity: 0.8; /* Da un look más cinematográfico antes del hover */
+    opacity: 0.8;
     filter: saturate(0.8);
+    transition: 0.5s;
 }
 
 .portfolio-item:hover img {
@@ -64,38 +189,68 @@ section { scroll-margin-top: 80px; }
     filter: saturate(1.1);
 }
 
-.portfolio-overlay .project-name {
-    font-size: 1.1rem;
-    margin-bottom: 5px;
+.portfolio-overlay { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0, 0, 0, 0.85); 
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    opacity: 0; 
+    transition: 0.5s; 
+    z-index: 2;
 }
 
-.portfolio-overlay .small {
-    display: block;
-    margin-bottom: 15px;
-    letter-spacing: 1px;
+.portfolio-item:hover .portfolio-overlay { opacity: 1; }
+
+/* ==========================================================================
+   5. FORMULARIOS (MEJORADO)
+   ========================================================================== */
+.form-control, .form-select {
+    background-color: transparent !important;
+    color: white !important;
+    border-radius: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px;
 }
 
-/* Efecto de borde dorado en el servicio destacado */
-.service-card:hover {
-    border-color: var(--gold-accent) !important;
-    transform: translateY(-5px);
-    transition: 0.3s ease-in-out;
+/* Solución para la visibilidad de los Placeholders */
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 0.9rem;
+}
+/* Prefijos para otros navegadores */
+.form-control::-webkit-input-placeholder { color: rgba(255, 255, 255, 0.5); }
+.form-control::-moz-placeholder { color: rgba(255, 255, 255, 0.5); }
+.form-control:-ms-input-placeholder { color: rgba(255, 255, 255, 0.5); }
+
+.form-control:focus, .form-select:focus { 
+    background-color: rgba(255, 255, 255, 0.05) !important; 
+    color: white; 
+    border-color: var(--gold-accent); 
+    box-shadow: none; 
 }
 
-section#portfolio {
-    scroll-margin-top: 80px; 
+.btn-gold { 
+    background-color: var(--gold-accent); 
+    color: white; 
+    border-radius: 0; 
+    letter-spacing: 3px; 
+    transition: 0.3s;
 }
 
-/* Asegura que el contenido sea cliqueable sobre el video y el overlay */
-.hero .container {
-    position: relative;
-    z-index: 2; /* Mayor que el z-index del overlay */
-}
-.historia-img-container {
-    position: relative;
-    padding: 10px;
+.btn-gold:hover { 
+    background-color: #a3854a; 
+    color: white; 
 }
 
+/* ==========================================================================
+   6. UTILIDADES Y ANIMACIONES
+   ========================================================================== */
 .experience-badge {
     position: absolute;
     bottom: -20px;
@@ -106,7 +261,7 @@ section#portfolio {
     font-weight: bold;
     letter-spacing: 2px;
     font-size: 0.8rem;
-    box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .border-gold-glow {
@@ -114,34 +269,28 @@ section#portfolio {
     box-shadow: 0 0 30px rgba(197, 160, 89, 0.1);
 }
 
-/* Estado inicial del Navbar */
-#mainNav {
-    transition: all 0.3s ease-in-out;
-    background-color: transparent; /* Totalmente transparente al inicio */
-    padding: 15px 0;
+.bg-black { background-color: #000 !important; }
+
+@keyframes fadeIn { 
+    from { opacity: 0; } 
+    to { opacity: 1; } 
 }
 
-/* Clase que se activará al hacer scroll */
-#mainNav.navbar-scrolled {
-    background-color: rgba(0, 0, 0, 0.85) !important; /* Negro semi-transparente */
-    backdrop-filter: blur(10px); /* Efecto de desenfoque moderno */
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+/* ==========================================================================
+   7. RESPONSIVO Y CORRECCIÓN DE TÍTULOS
+   ========================================================================== */
+.responsive-title {
+    font-size: clamp(1.4rem, 9vw, 3.8rem); 
+    line-height: 1.1;
+    overflow-wrap: break-word;
+    hyphens: none;
+    word-break: keep-all;
 }
 
-/* Ajuste para los enlaces para que siempre resalten sobre fondo oscuro */
-#mainNav .nav-link {
-    color: rgba(255, 255, 255, 0.8) !important;
-    font-weight: 500;
+@media (max-width: 768px) {
+    .main-logo { max-width: 300px; }
+    .price { font-size: 2.2rem; }
+    .featured-package { transform: scale(1); }
+    body { padding-top: 0; }
+    .hero { height: auto; min-height: 100vh; padding: 100px 0; }
 }
-
-#mainNav .nav-link:hover {
-    color: #fff !important;
-}
-
-.bg-black {
-    background-color: #000 !important;
-}
-
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
