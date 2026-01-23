@@ -22,3 +22,12 @@ function enviarAWhatsApp(event) {
     // 5. Abrir en una nueva ventana
     window.open(url, '_blank');
 }
+
+window.addEventListener('scroll', function() {
+    const nav = document.getElementById('mainNav');
+    if (window.scrollY > 50) {
+        nav.classList.add('navbar-scrolled');
+    } else {
+        nav.classList.remove('navbar-scrolled');
+    }
+});

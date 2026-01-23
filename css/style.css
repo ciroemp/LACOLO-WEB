@@ -114,6 +114,31 @@ section#portfolio {
     box-shadow: 0 0 30px rgba(197, 160, 89, 0.1);
 }
 
+/* Estado inicial del Navbar */
+#mainNav {
+    transition: all 0.3s ease-in-out;
+    background-color: transparent; /* Totalmente transparente al inicio */
+    padding: 15px 0;
+}
+
+/* Clase que se activará al hacer scroll */
+#mainNav.navbar-scrolled {
+    background-color: rgba(0, 0, 0, 0.85) !important; /* Negro semi-transparente */
+    backdrop-filter: blur(10px); /* Efecto de desenfoque moderno */
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Ajuste para los enlaces para que siempre resalten sobre fondo oscuro */
+#mainNav .nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 500;
+}
+
+#mainNav .nav-link:hover {
+    color: #fff !important;
+}
+
 .bg-black {
     background-color: #000 !important;
 }
