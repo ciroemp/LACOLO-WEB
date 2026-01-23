@@ -43,7 +43,7 @@ section { scroll-margin-top: 80px; }
 .portfolio-item:hover .portfolio-overlay { opacity: 1; }
 
 /* Form & Buttons */
-.form-control, .form-select { border-radius: 0; color: white; }
+.form-control, .form-select { border-radius: 0; color: rgb(255, 255, 255); }
 .form-control:focus, .form-select:focus { background-color: transparent; color: white; border-color: var(--gold-accent); box-shadow: none; }
 .btn-gold { background-color: var(--gold-accent); color: white; border-radius: 0; letter-spacing: 3px; }
 .btn-gold:hover { background-color: #a3854a; color: white; }
