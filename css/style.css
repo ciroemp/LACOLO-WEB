@@ -238,9 +238,19 @@ nav button[aria-current="true"] .dot::before{width:13px;height:13px;background:v
 .hdr-cta:hover{border-color:var(--sodio);color:var(--sodio)}
 .flechas{display:flex;align-items:center;gap:10px}
 .flechas .aqui{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sodio);min-width:7.5em;text-align:right}
-.flechas button{width:40px;height:40px;border:2px solid var(--cal);background:transparent;cursor:pointer;font-family:var(--f-rotulo);font-size:16px}
-.flechas button:hover:not(:disabled){border-color:var(--sodio);color:var(--sodio)}
-.flechas button:disabled{opacity:.3;cursor:default}
+.flechas button{width:46px;height:46px;display:grid;place-items:center;cursor:pointer;
+  font-family:var(--f-rotulo);font-size:20px;line-height:1;color:#fff4dc;background:rgba(255,181,74,.08);
+  border:2px solid var(--sodio);border-radius:10px;
+  text-shadow:0 0 6px var(--sodio),0 0 14px rgba(255,181,74,.9);
+  box-shadow:0 0 6px rgba(255,181,74,.9),0 0 18px rgba(255,181,74,.55),inset 0 0 10px rgba(255,181,74,.45);
+  animation:neon-pulso 1.8s ease-in-out infinite;transition:background .2s}
+.flechas #next{animation-delay:.9s}
+.flechas button:hover:not(:disabled){animation-play-state:paused;transform:scale(1.08);background:rgba(255,181,74,.22)}
+.flechas button:active:not(:disabled){transform:scale(.94)}
+.flechas button:disabled{animation:none;opacity:.25;cursor:default;box-shadow:none;text-shadow:none;border-color:rgba(239,230,211,.5);color:var(--cal);background:transparent}
+@keyframes neon-pulso{
+  0%,100%{transform:scale(1);box-shadow:0 0 6px rgba(255,181,74,.9),0 0 18px rgba(255,181,74,.55),inset 0 0 10px rgba(255,181,74,.45)}
+  50%{transform:scale(.9);box-shadow:0 0 3px rgba(255,181,74,.6),0 0 8px rgba(255,181,74,.3),inset 0 0 6px rgba(255,181,74,.25)}}
 
 #fx{position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(ellipse 85% 80% at 50% 45%,transparent 55%,rgba(0,0,0,.55))}
