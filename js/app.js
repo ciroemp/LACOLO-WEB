@@ -18,60 +18,29 @@
     nav.appendChild(li);
   });
 
-  const prevBtn = document.getElementById('prev'), nextBtn = document.getElementById('next');
-  const prevName = document.getElementById('prev-name'), nextName = document.getElementById('next-name');
-  const ladoPrev = document.getElementById('lado-prev'), ladoNext = document.getElementById('lado-next');
-  const cuenta = document.getElementById('cuenta'), barras = document.getElementById('barras');
-  const pista = document.getElementById('pista');
-  barras.innerHTML = '<i></i>'.repeat(N);
-  let navegó = false;
-  function ocultarPista() { if (!navegó) { navegó = true; pista.classList.add('oculta'); } }
-
   function updateUI() {
     nav.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-current', i === cur ? 'true' : 'false'));
     sts.forEach((s, i) => { s.inert = i !== cur; });
-    prevBtn.hidden = cur === 0; nextBtn.hidden = cur === N - 1;
-    ladoPrev.hidden = cur === 0; ladoNext.hidden = cur === N - 1;
-    if (cur > 0) { prevName.textContent = names[cur - 1]; ladoPrev.querySelector('b').textContent = names[cur - 1]; }
-    if (cur < N - 1) { nextName.textContent = names[cur + 1]; ladoNext.querySelector('b').textContent = names[cur + 1]; }
-    cuenta.textContent = `${cur + 1} / ${N}`;
-    barras.querySelectorAll('i').forEach((b, i) => b.classList.toggle('on', i === cur));
+    document.getElementById('aqui').textContent = names[cur];
+    document.getElementById('prev').disabled = cur === 0;
+    document.getElementById('next').disabled = cur === N - 1;
     try { history.replaceState(null, '', '#' + ids[cur]); } catch (e) {}
   }
 
   const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  // mueve la cámara hasta la fachada i; zoom = efecto de "caminar"
-  function moveTo(i, dur, zoom) {
-    if (anim) cancelAnimationFrame(anim);
-    if (i !== cur) ocultarPista();
-    cur = i; updateUI();
-    if (reduce || dur === 0) { x = i; cam.style.transform = ''; render(); anim = null; return; }
-    const from = x, to = i, t0 = performance.now();
-    const step = now => {
-      const t = Math.min(1, (now - t0) / dur);
-      x = from + (to - from) * (zoom ? ease(t) : 1 - Math.pow(1 - t, 3));
-      cam.style.transform = zoom ? `scale(${1 - 0.075 * Math.sin(Math.PI * t)})` : '';
-      render();
-      if (t < 1) anim = requestAnimationFrame(step); else { anim = null; cam.style.transform = ''; }
-    };
-    anim = requestAnimationFrame(step);
-  }
   function go(i, instant) {
     i = Math.max(0, Math.min(N - 1, i));
     if (i === cur && !instant) return;
-    moveTo(i, instant ? 0 : 1250 + Math.abs(i - x) * 260, true);
-  }
-
-  // asomada: al cargar, la cámara se asoma a la siguiente fachada y regresa
-  function asomar() {
-    if (reduce || navegó || anim || cur === N - 1) return;
-    const base = cur, t0 = performance.now(), dur = 1300;
+    cur = i; updateUI();
+    if (anim) cancelAnimationFrame(anim);
+    if (instant || reduce) { x = i; cam.style.transform = ''; render(); anim = null; return; }
+    const from = x, to = i, dur = 1250 + Math.abs(to - from) * 260, t0 = performance.now();
     const step = now => {
-      if (navegó || cur !== base) return;
       const t = Math.min(1, (now - t0) / dur);
-      x = base + 0.14 * Math.sin(Math.PI * t) * Math.sin(Math.PI * t);
+      x = from + (to - from) * ease(t);
+      cam.style.transform = `scale(${1 - 0.075 * Math.sin(Math.PI * t)})`;
       render();
-      if (t < 1) anim = requestAnimationFrame(step); else { anim = null; x = base; render(); }
+      if (t < 1) anim = requestAnimationFrame(step); else { anim = null; cam.style.transform = ''; }
     };
     anim = requestAnimationFrame(step);
   }
@@ -83,8 +52,8 @@
     if (s) { sel.value = s; updateLink(); }
     go(ids.indexOf(b.dataset.go));
   });
-  prevBtn.onclick = ladoPrev.onclick = () => go(cur - 1);
-  nextBtn.onclick = ladoNext.onclick = () => go(cur + 1);
+  document.getElementById('prev').onclick = () => go(cur - 1);
+  document.getElementById('next').onclick = () => go(cur + 1);
 
   // rueda, teclado, gestos
   let acc = 0, lockUntil = 0;
@@ -110,41 +79,12 @@
     else if (e.key === 'Home') go(0);
     else if (e.key === 'End') go(N - 1);
   });
-  // arrastre con el dedo: la calle sigue al dedo y se acomoda en la fachada más cercana
-  let drag = null;
-  app.addEventListener('touchstart', e => {
-    if (e.touches.length > 1 || e.target.closest('input,textarea,select')) { drag = null; return; }
-    if (anim) { cancelAnimationFrame(anim); anim = null; cam.style.transform = ''; }
-    const t = e.touches[0];
-    drag = { x0: t.clientX, y0: t.clientY, t0: performance.now(), dx: 0, axis: null, base: x };
+  let tx = 0, ty = 0;
+  app.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+  app.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.3) go(cur + (dx < 0 ? 1 : -1));
   }, { passive: true });
-  app.addEventListener('touchmove', e => {
-    if (!drag) return;
-    const t = e.touches[0], dx = t.clientX - drag.x0, dy = t.clientY - drag.y0;
-    if (!drag.axis) {
-      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
-      drag.axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-    }
-    if (drag.axis !== 'x') return;
-    e.preventDefault();
-    drag.dx = dx;
-    let nx = drag.base - dx / W;
-    if (nx < 0) nx *= .3;
-    if (nx > N - 1) nx = N - 1 + (nx - (N - 1)) * .3;
-    x = nx; render();
-  }, { passive: false });
-  const soltar = () => {
-    if (!drag) return;
-    const d = drag; drag = null;
-    if (d.axis !== 'x') { if (x !== cur) moveTo(cur, 400, false); return; }
-    const v = d.dx / Math.max(1, performance.now() - d.t0);
-    let target = Math.round(x);
-    if (Math.abs(d.dx) > W * .16 || Math.abs(v) > .45) target = Math.round(d.base) + (d.dx < 0 ? 1 : -1);
-    target = Math.max(0, Math.min(N - 1, target));
-    moveTo(target, 520, false);
-  };
-  app.addEventListener('touchend', soltar);
-  app.addEventListener('touchcancel', soltar);
 
   // escena: cielo, volcán y techos (capa lejana)
   function rng(seed) { return () => (seed = (seed * 16807) % 2147483647, (seed - 1) / 2147483646); }
@@ -315,13 +255,65 @@
     try { navigator.clipboard.writeText('+503 7747-1010').then(ok, fallback); } catch (_) { fallback(); }
   });
 
+  // beat de la casa (Web Audio, 88 BPM, boom bap)
+  const radio = document.getElementById('radio'), beatBtn = document.getElementById('beat'), beatTxt = document.getElementById('beat-txt');
+  let ac = null, master, noiseBuf, timer = null, nextT = 0, stepN = 0, crackle = null;
+  const BPM = 88, S16 = 60 / BPM / 4;
+  const KICK = [0, 3, 10], SNARE = [4, 12];
+  const CHORDS = [[220, 261.63, 329.63, 392], [174.61, 220, 261.63, 329.63]];
+  function initAudio() {
+    ac = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = ac.createDynamicsCompressor(); master = ac.createGain(); master.gain.value = 0;
+    master.connect(comp); comp.connect(ac.destination);
+    noiseBuf = ac.createBuffer(1, ac.sampleRate, ac.sampleRate);
+    const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  }
+  function env(g, t, peak, dec) { g.gain.setValueAtTime(peak, t); g.gain.exponentialRampToValueAtTime(.0008, t + dec); }
+  function kick(t) { const o = ac.createOscillator(), g = ac.createGain(); o.frequency.setValueAtTime(140, t); o.frequency.exponentialRampToValueAtTime(42, t + .14); env(g, t, .95, .42); o.connect(g).connect(master); o.start(t); o.stop(t + .45); }
+  function noiseHit(t, type, f, peak, dec) { const s = ac.createBufferSource(), fl = ac.createBiquadFilter(), g = ac.createGain(); s.buffer = noiseBuf; fl.type = type; fl.frequency.value = f; env(g, t, peak, dec); s.connect(fl).connect(g).connect(master); s.start(t); s.stop(t + dec + .02); }
+  function snare(t) { noiseHit(t, 'bandpass', 1900, .55, .2); const o = ac.createOscillator(), g = ac.createGain(); o.type = 'triangle'; o.frequency.value = 185; env(g, t, .3, .1); o.connect(g).connect(master); o.start(t); o.stop(t + .12); }
+  function chord(t, notes) {
+    const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1300; lp.connect(master);
+    notes.forEach(f => { const o = ac.createOscillator(), g = ac.createGain(); o.type = 'triangle'; o.frequency.value = f; o.detune.value = Math.random() * 10 - 5;
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.07, t + .05); g.gain.exponentialRampToValueAtTime(.001, t + S16 * 15); o.connect(g).connect(lp); o.start(t); o.stop(t + S16 * 16); });
+    const b = ac.createOscillator(), bg = ac.createGain(); b.frequency.value = notes[0] / 4; env(bg, t, .45, S16 * 7); b.connect(bg).connect(master); b.start(t); b.stop(t + S16 * 8);
+  }
+  function schedule() {
+    while (nextT < ac.currentTime + .12) {
+      const s = stepN % 16, swing = s % 2 ? S16 * .16 : 0, t = nextT + swing;
+      if (KICK.includes(s)) kick(t);
+      if (SNARE.includes(s)) snare(t);
+      if (s % 2 === 0) noiseHit(t, 'highpass', 7200, s % 4 ? .09 : .14, .045);
+      if (s === 0) chord(t, CHORDS[Math.floor(stepN / 16) % 2]);
+      nextT += S16; stepN++;
+    }
+  }
+  function startCrackle() { const s = ac.createBufferSource(), fl = ac.createBiquadFilter(), g = ac.createGain(); s.buffer = noiseBuf; s.loop = true; fl.type = 'highpass'; fl.frequency.value = 3500; g.gain.value = .012; s.connect(fl).connect(g).connect(master); s.start(); crackle = s; }
+  beatBtn.addEventListener('click', async () => {
+    const on = beatBtn.getAttribute('aria-pressed') !== 'true';
+    try {
+      if (on) {
+        if (!ac) initAudio();
+        await ac.resume();
+        master.gain.cancelScheduledValues(ac.currentTime); master.gain.setTargetAtTime(.55, ac.currentTime, .15);
+        nextT = ac.currentTime + .05; stepN = 0; if (!crackle) startCrackle();
+        timer = setInterval(schedule, 25);
+        beatTxt.textContent = 'Beat de la casa · 88 BPM';
+      } else {
+        clearInterval(timer); timer = null;
+        master.gain.setTargetAtTime(0, ac.currentTime, .12);
+        beatTxt.textContent = 'Beat apagado · tocá para encender';
+      }
+      beatBtn.setAttribute('aria-pressed', on); beatBtn.setAttribute('aria-label', on ? 'Apagar beat' : 'Encender beat');
+      radio.classList.toggle('on', on);
+    } catch (e) { beatTxt.textContent = 'Este navegador no deja reproducir audio'; }
+  });
+
   // arranque
   measure();
   const start = Math.max(0, ids.indexOf(location.hash.slice(1)));
   go(start, true); updateUI();
   addEventListener('hashchange', () => { const i = ids.indexOf(location.hash.slice(1)); if (i >= 0) go(i); });
   if (!reduce) requestAnimationFrame(loop); else drawNear(0);
-  setTimeout(asomar, 1600);
-  setTimeout(() => { if (!matchMedia('(pointer: coarse)').matches) pista.classList.add('oculta'); }, 9000);
   if (document.fonts) document.fonts.ready.then(measure);
 })();
