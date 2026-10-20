@@ -255,60 +255,6 @@
     try { navigator.clipboard.writeText('+503 7747-1010').then(ok, fallback); } catch (_) { fallback(); }
   });
 
-  // beat de la casa (Web Audio, 88 BPM, boom bap)
-  const radio = document.getElementById('radio'), beatBtn = document.getElementById('beat'), beatTxt = document.getElementById('beat-txt');
-  let ac = null, master, noiseBuf, timer = null, nextT = 0, stepN = 0, crackle = null;
-  const BPM = 88, S16 = 60 / BPM / 4;
-  const KICK = [0, 3, 10], SNARE = [4, 12];
-  const CHORDS = [[220, 261.63, 329.63, 392], [174.61, 220, 261.63, 329.63]];
-  function initAudio() {
-    ac = new (window.AudioContext || window.webkitAudioContext)();
-    const comp = ac.createDynamicsCompressor(); master = ac.createGain(); master.gain.value = 0;
-    master.connect(comp); comp.connect(ac.destination);
-    noiseBuf = ac.createBuffer(1, ac.sampleRate, ac.sampleRate);
-    const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-  }
-  function env(g, t, peak, dec) { g.gain.setValueAtTime(peak, t); g.gain.exponentialRampToValueAtTime(.0008, t + dec); }
-  function kick(t) { const o = ac.createOscillator(), g = ac.createGain(); o.frequency.setValueAtTime(140, t); o.frequency.exponentialRampToValueAtTime(42, t + .14); env(g, t, .95, .42); o.connect(g).connect(master); o.start(t); o.stop(t + .45); }
-  function noiseHit(t, type, f, peak, dec) { const s = ac.createBufferSource(), fl = ac.createBiquadFilter(), g = ac.createGain(); s.buffer = noiseBuf; fl.type = type; fl.frequency.value = f; env(g, t, peak, dec); s.connect(fl).connect(g).connect(master); s.start(t); s.stop(t + dec + .02); }
-  function snare(t) { noiseHit(t, 'bandpass', 1900, .55, .2); const o = ac.createOscillator(), g = ac.createGain(); o.type = 'triangle'; o.frequency.value = 185; env(g, t, .3, .1); o.connect(g).connect(master); o.start(t); o.stop(t + .12); }
-  function chord(t, notes) {
-    const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1300; lp.connect(master);
-    notes.forEach(f => { const o = ac.createOscillator(), g = ac.createGain(); o.type = 'triangle'; o.frequency.value = f; o.detune.value = Math.random() * 10 - 5;
-      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.07, t + .05); g.gain.exponentialRampToValueAtTime(.001, t + S16 * 15); o.connect(g).connect(lp); o.start(t); o.stop(t + S16 * 16); });
-    const b = ac.createOscillator(), bg = ac.createGain(); b.frequency.value = notes[0] / 4; env(bg, t, .45, S16 * 7); b.connect(bg).connect(master); b.start(t); b.stop(t + S16 * 8);
-  }
-  function schedule() {
-    while (nextT < ac.currentTime + .12) {
-      const s = stepN % 16, swing = s % 2 ? S16 * .16 : 0, t = nextT + swing;
-      if (KICK.includes(s)) kick(t);
-      if (SNARE.includes(s)) snare(t);
-      if (s % 2 === 0) noiseHit(t, 'highpass', 7200, s % 4 ? .09 : .14, .045);
-      if (s === 0) chord(t, CHORDS[Math.floor(stepN / 16) % 2]);
-      nextT += S16; stepN++;
-    }
-  }
-  function startCrackle() { const s = ac.createBufferSource(), fl = ac.createBiquadFilter(), g = ac.createGain(); s.buffer = noiseBuf; s.loop = true; fl.type = 'highpass'; fl.frequency.value = 3500; g.gain.value = .012; s.connect(fl).connect(g).connect(master); s.start(); crackle = s; }
-  beatBtn.addEventListener('click', async () => {
-    const on = beatBtn.getAttribute('aria-pressed') !== 'true';
-    try {
-      if (on) {
-        if (!ac) initAudio();
-        await ac.resume();
-        master.gain.cancelScheduledValues(ac.currentTime); master.gain.setTargetAtTime(.55, ac.currentTime, .15);
-        nextT = ac.currentTime + .05; stepN = 0; if (!crackle) startCrackle();
-        timer = setInterval(schedule, 25);
-        beatTxt.textContent = 'Beat de la casa · 88 BPM';
-      } else {
-        clearInterval(timer); timer = null;
-        master.gain.setTargetAtTime(0, ac.currentTime, .12);
-        beatTxt.textContent = 'Beat apagado · tocá para encender';
-      }
-      beatBtn.setAttribute('aria-pressed', on); beatBtn.setAttribute('aria-label', on ? 'Apagar beat' : 'Encender beat');
-      radio.classList.toggle('on', on);
-    } catch (e) { beatTxt.textContent = 'Este navegador no deja reproducir audio'; }
-  });
-
   // arranque
   measure();
   const start = Math.max(0, ids.indexOf(location.hash.slice(1)));

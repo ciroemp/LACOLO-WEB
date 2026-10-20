@@ -221,7 +221,7 @@ header,footer{position:fixed;left:0;right:0;z-index:5;display:flex;align-items:c
   padding-left:calc(var(--gut-l) + 4px);padding-right:calc(var(--gut-r) + 4px)}
 header{top:0;padding-top:calc(env(safe-area-inset-top,0px) + 12px);padding-bottom:12px;justify-content:space-between;
   background:linear-gradient(to bottom,rgba(8,11,20,.85),rgba(8,11,20,0))}
-footer{bottom:0;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 12px);padding-top:12px;justify-content:space-between;
+footer{bottom:0;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 12px);padding-top:12px;justify-content:flex-end;
   background:linear-gradient(to top,rgba(8,11,20,.9),rgba(8,11,20,0))}
 .logo{display:flex;flex-direction:column;line-height:1;background:none;border:0;padding:0;cursor:pointer;text-align:left}
 .logo b{font-family:var(--f-rotulo);font-weight:400;font-size:20px;color:var(--sodio)}
@@ -236,16 +236,6 @@ nav button[aria-current="true"]{color:var(--sodio)}
 nav button[aria-current="true"] .dot::before{width:13px;height:13px;background:var(--sodio);box-shadow:0 0 0 4px rgba(255,181,74,.2),0 0 18px var(--sodio)}
 .hdr-cta{font-family:var(--f-rotulo);font-size:13px;background:transparent;color:var(--cal);border:2px solid var(--cal);padding:.5em .8em;cursor:pointer}
 .hdr-cta:hover{border-color:var(--sodio);color:var(--sodio)}
-.radio{display:flex;align-items:center;gap:12px;min-width:0}
-.radio button{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:2px solid var(--cal);background:transparent;cursor:pointer;flex:none}
-.radio button:hover{border-color:var(--sodio);color:var(--sodio)}
-.radio .eq{display:flex;gap:3px;align-items:flex-end;height:14px}
-.radio .eq i{width:3px;height:4px;background:currentColor;transition:height .2s}
-.radio.on .eq i{animation:eq .9s ease-in-out infinite}
-.radio.on .eq i:nth-child(2){animation-delay:.2s}.radio.on .eq i:nth-child(3){animation-delay:.45s}
-@keyframes eq{0%,100%{height:4px}50%{height:14px}}
-.radio .txt{display:flex;flex-direction:column;line-height:1.25;min-width:0}
-.radio .txt b{font-family:var(--f-mono);font-weight:500;font-size:12px;letter-spacing:.06em;color:var(--cal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .flechas{display:flex;align-items:center;gap:10px}
 .flechas .aqui{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--sodio);min-width:7.5em;text-align:right}
 .flechas button{width:40px;height:40px;border:2px solid var(--cal);background:transparent;cursor:pointer;font-family:var(--f-rotulo);font-size:16px}
@@ -271,7 +261,7 @@ nav button[aria-current="true"] .dot::before{width:13px;height:13px;background:v
   .nota{position:static;margin-top:16px;display:inline-block}
   .s-503{right:4px}
 }
-@media (max-width:380px){ nav ol{gap:4px} .radio .txt span{display:none} }
+@media (max-width:380px){ nav ol{gap:4px} }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
