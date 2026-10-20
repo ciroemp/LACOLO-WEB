@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LACOLO Producciones | Contenido Audiovisual</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>LACOLO Producciones | Estudio de grabación y video en Santa Tecla</title>
+    <meta name="description" content="Estudio de producción urbana en Santa Tecla: grabación de voz, mezcla y master, videoclips y edición. Cáete a LaColo.">
+    <meta name="theme-color" content="#080b14">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.lacolost.com/">
+    <meta property="og:title" content="LACOLO Producciones">
+    <meta property="og:description" content="Grabamos, mezclamos y filmamos para los artistas urbanos de El Salvador.">
+    <meta property="og:image" content="https://www.lacolost.com/img/estudio.jpg">
 
     <script type="application/ld+json">
     {
@@ -34,304 +40,225 @@
     }
     </script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital@1&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="img/lacolo1.png">
+    <link rel="apple-touch-icon" href="img/lacolo1.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Bungee&family=Bungee+Inline&family=DM+Mono:wght@400;500&family=Sedgwick+Ave+Display&display=swap">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body>
+<div id="app">
+  <div id="cam">
+    <canvas id="far" aria-hidden="true"></canvas>
+    <div id="strip">
+      <div id="street" aria-hidden="true"></div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="img/lacolo1.png" alt="Logo" height="40">
+      <section class="st st-inicio" style="--i:0" id="st-inicio" aria-label="Inicio">
+        <div class="wall"><div class="inner"><div class="content">
+          <div class="hero">
+            <div>
+              <h1 class="rotulo"><span class="big">LACOLO</span><span class="sub">PRODUCCIONES</span></h1>
+              <span class="spray tag">Cáete a LaColo</span>
+              <p>LACOLO empezó cuando abrimos las puertas del estudio a los artistas urbanos de la colonia. Hoy grabamos, mezclamos y filmamos para elevar el sonido y la imagen de El Salvador.</p>
+              <div class="row">
+                <button class="btn" data-go="proyectos">Ver proyectos →</button>
+                <button class="btn ghost" data-go="menu">Ver precios</button>
+              </div>
+              <div class="meta">
+                <span class="label">Audio · Video · Post</span>
+                <span class="label">Est. 2026</span>
+                <span class="label">Santa Tecla, SV</span>
+              </div>
+            </div>
+            <div class="gate-wrap">
+              <span class="onair">● EN GRABACIÓN</span>
+              <div class="gate" role="img" aria-label="El estudio de LACOLO visto a través del portón"></div>
+              <span class="placa">SANTA TECLA · SV</span>
+            </div>
+          </div>
+        </div></div></div>
+      </section>
+
+      <section class="st st-proyectos" style="--i:1" id="st-proyectos" aria-label="Proyectos">
+        <div class="wall"><div class="inner"><div class="content">
+          <div class="head">
+            <h2 class="painted">PROYECTOS</h2>
+            <span class="spray">hechos en la colonia</span>
+            <p>Tocá un afiche para ver el video completo en YouTube.</p>
+          </div>
+          <div class="afiches">
+            <a class="afiche a1" href="https://youtu.be/nkvFabcM0UQ" target="_blank" rel="noopener">
+              <span class="a-genero">Música urbana</span>
+              <span class="a-foto"><img src="img/proyectos/libre-y-despeinada.jpg" alt="Escena del video Libre y Despeinada" loading="lazy" width="640" height="360"><span class="a-btn" aria-hidden="true">▶</span></span>
+              <span class="a-titulo">Libre y Despeinada</span>
+              <span class="a-artista">La Cookie 503</span>
+              <span class="a-play">▶ Ver video</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto text-uppercase">
-                    <li class="nav-item"><a class="nav-link px-3" href="#">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#portfolio">Portafolio</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#servicios">Servicios</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#paquetes">Paquetes</a></li>
-                    <li class="nav-item"><a class="nav-link px-3 btn-contacto-nav ms-lg-3" href="#contacto">Contacto</a>
-                    </li>
+            <a class="afiche a2" href="https://youtu.be/Eg9GA0urEUU" target="_blank" rel="noopener">
+              <span class="a-genero">Hip hop</span>
+              <span class="a-foto"><img src="img/proyectos/esto-es-real-hip-hop.jpg" alt="Escena del video Esto es Real Hip Hop" loading="lazy" width="640" height="360"><span class="a-btn" aria-hidden="true">▶</span></span>
+              <span class="a-titulo">ESTO ES REAL HIP HOP</span>
+              <span class="a-artista">Minimo Oner</span>
+              <span class="a-play">▶ Ver video</span>
+            </a>
+            <a class="afiche a3" href="https://youtu.be/VpfCqF4Hs4Y" target="_blank" rel="noopener">
+              <span class="a-genero">Rap cultural</span>
+              <span class="a-foto"><img src="img/proyectos/carpe-diem.jpg" alt="Escena del video Carpe Diem" loading="lazy" width="640" height="360"><span class="a-btn" aria-hidden="true">▶</span></span>
+              <span class="a-titulo">Carpe<br><span>Diem</span></span>
+              <span class="a-artista">Naoko x Sensu</span>
+              <span class="a-play">▶ Ver video</span>
+            </a>
+            <a class="afiche a4" href="https://youtu.be/4stTlnJS1RE" target="_blank" rel="noopener">
+              <span class="medalla" aria-hidden="true"></span>
+              <span class="a-genero">Rap / VFX</span>
+              <span class="a-foto"><img src="img/proyectos/medalla-de-honor.jpg" alt="Escena del video Medalla de Honor" loading="lazy" width="640" height="360"><span class="a-btn" aria-hidden="true">▶</span></span>
+              <span class="a-titulo">MEDALLA DE HONOR</span>
+              <span class="a-artista">NATSU</span>
+              <span class="a-play">▶ Ver video</span>
+            </a>
+          </div>
+        </div></div></div>
+      </section>
+
+      <section class="st st-menu" style="--i:2" id="st-menu" aria-label="Menú de servicios">
+        <div class="wall"><div class="inner"><div class="content">
+          <div class="menu">
+            <div class="menu-top">
+              <h2>MENÚ</h2>
+              <span class="spray">del estudio</span>
+              <span class="label">Precios por sesión · en dólares</span>
+            </div>
+            <div class="cols">
+              <div>
+                <h3>AUDIO &amp; VOZ</h3>
+                <ul class="items">
+                  <li><span class="n">Grabación de voz<small>1–2 personas</small></span><span class="lead"></span><span class="precio">$40</span></li>
+                  <li><span class="n">Grabación de voz<small>3 personas</small></span><span class="lead"></span><span class="precio">$70</span></li>
+                  <li><span class="n">Mezcla<small>por canción</small></span><span class="lead"></span><span class="precio">$70</span></li>
+                  <li><span class="n">Mezcla + Master<small>paquete</small></span><span class="lead"></span><span class="precio">$90</span></li>
                 </ul>
+              </div>
+              <div>
+                <h3>VIDEO &amp; POST</h3>
+                <ul class="items">
+                  <li><span class="n">Grabación de video<small>por hora</small></span><span class="lead"></span><span class="precio">$60</span></li>
+                  <li><span class="n">Edición de video<small>por minuto</small></span><span class="lead"></span><span class="precio">$70</span></li>
+                  <li><span class="n">Tomas adicionales<small>por hora</small></span><span class="lead"></span><span class="precio">$50</span></li>
+                  <li><span class="n">Music Video Pack<small>ver paquetes</small></span><span class="lead"></span><span class="precio">$450</span></li>
+                </ul>
+              </div>
             </div>
-        </div>
-    </nav>
-
-    <header class="hero">
-        <div class="overlay"></div>
-        <video playsinline autoplay muted loop class="hero-video">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-cinematic-view-of-a-camera-lens-41486-large.mp4"
-                type="video/mp4">
-        </video>
-        <div class="container h-100 position-relative d-flex flex-column justify-content-center align-items-center">
-            <div class="text-center text-white">
-                <img src="img/lacolo1.png" alt="LACOLO Logo" class="main-logo mb-4">
-                <h2 class="subtitle-creative">Transformamos visiones en <span class="accent-text">experiencias</span>
-                </h2>
-                <div class="mt-5">
-                    <a href="#portfolio" class="btn btn-outline-light btn-lg px-5 py-3 rounded-0">VER PORTAFOLIO</a>
-                </div>
+            <div class="menu-pie">
+              <span>Anticipo del 50% para apartar fecha</span>
+              <span>Revisiones menores incluidas</span>
+              <span>Descuento para clientes frecuentes</span>
             </div>
-        </div>
-    </header>
+          </div>
+          <button class="nota" data-go="paquetes">¡Hay paquetes! →</button>
+        </div></div></div>
+      </section>
 
-    <section id="historia" class="py-5 bg-dark">
-        <div class="container py-5">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-6">
-                    <div class="historia-img-container">
-                        <img src="img/estudio.png" alt="Estudio LACOLO" class="img-fluid border-gold-glow">
-                        <div class="experience-badge">EST. 2026</div>
-                    </div>
-                </div>
+      <section class="st st-paquetes" style="--i:3" id="st-paquetes" aria-label="Paquetes">
+        <div class="wall"><div class="inner"><div class="content">
+          <div class="head" style="justify-content:center;text-align:center">
+            <h2 class="painted">PAQUETES VIP</h2>
+          </div>
+          <div class="boletos">
+            <article class="boleto">
+              <span class="sello">EL MÁS POPULAR</span>
+              <span class="label">Admite un proyecto</span>
+              <h3>Music Video Pack</h3>
+              <span class="monto">$450</span>
+              <ul>
+                <li>Grabación de voces (audio pro)</li>
+                <li>Mezcla y masterización completa</li>
+                <li>Grabación de videoclip (4 horas)</li>
+                <li>Edición cinematográfica (3 min)</li>
+              </ul>
+              <div class="corte" aria-hidden="true"></div>
+              <button class="btn" data-go="contacto" data-servicio="Music Video Pack ($450)">Reservar este</button>
+            </article>
+            <article class="boleto">
+              <span class="label">Contenido completo</span>
+              <h3>All-In Production</h3>
+              <span class="monto">$600</span>
+              <ul>
+                <li>Todo lo del Music Video Pack</li>
+                <li>5 teasers para redes sociales</li>
+                <li>Estrategia de expectativa</li>
+                <li>Prioridad en agenda</li>
+              </ul>
+              <div class="corte" aria-hidden="true"></div>
+              <button class="btn" data-go="contacto" data-servicio="All-In Production ($600)">Reservar este</button>
+            </article>
+          </div>
+          <p class="paq-pie">Anticipo del 50% para reservar · Revisión y correcciones menores incluidas</p>
+        </div></div></div>
+      </section>
 
-                <div class="col-lg-6 text-white">
-                    <h6 class="text-gold letter-spacing-3 mb-3">HISTORIA CON ALMA</h6>
-                    <h3 class="display-6 fw-bold mb-4">"Caéte a <span class="accent-text">LaColo</span>"</h3>
-                    <p class="text-secondary">
-                        LACOLO nació de un cambio de rumbo. Decidí abrir
-                        las puertas de mi estudio a los artistas urbanos de mi colonia. Lo que empezó como un
-                        emprendimiento hoy es un centro de producción técnica urbano.
-                    </p>
-                    <p class="text-secondary mb-5">
-                        Combinamos la narrativa de la comunicación con la precisión de la ingeniería para elevar el
-                        sonido y la imagen de El Salvador.
-                    </p>
-
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <div class="p-3 border-start border-gold bg-black">
-                                <h5 class="h6">PRINCIPIOS</h5>
-                                <p class="small text-secondary mb-0">Honestidad y fe en cada proyecto. Tu música en
-                                    buenas manos.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 border-start border-gold bg-black">
-                                <h5 class="h6">VALORES</h5>
-                                <p class="small text-secondary mb-0">Cercanía de comunidad, calidad de ingeniería.
-                                    Excelencia sin excusas.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <section class="st st-contacto" style="--i:4" id="st-contacto" aria-label="Contacto">
+        <div class="wall"><div class="inner"><div class="content">
+          <div class="contacto">
+            <div>
+              <h2 class="painted">HABLEMOS</h2>
+              <span class="spray">de tu proyecto</span>
+              <p>Contanos qué querés grabar y coordinamos tu próxima sesión por WhatsApp.</p>
+              <div class="directo">
+                <span class="label">O escribí directo</span>
+                <span class="numero" id="numero">+503 7747-1010</span>
+                <button class="copiar" id="copiar" type="button">Copiar</button>
+              </div>
+              <div class="firma">© 2026 LACOLO Producciones · Santa Tecla, La Libertad, El Salvador</div>
             </div>
-        </div>
-    </section>
+            <form class="papel" id="form" novalidate>
+              <span class="sticker s-503" aria-hidden="true">503</span>
+              <h3>Apartá tu fecha</h3>
+              <div class="campo"><label for="f-nombre">Tu nombre o nombre artístico</label><input id="f-nombre" autocomplete="name" placeholder="Ej. La Cookie 503"></div>
+              <div class="campo"><label for="f-servicio">Servicio</label>
+                <select id="f-servicio">
+                  <option value="">Elegí un servicio…</option>
+                  <option>Grabación de voz</option>
+                  <option>Mezcla + Master</option>
+                  <option>Grabación y edición de video</option>
+                  <option>Music Video Pack ($450)</option>
+                  <option>All-In Production ($600)</option>
+                </select>
+              </div>
+              <div class="campo"><label for="f-fecha">Fecha que te gustaría</label><input id="f-fecha" placeholder="Ej. sábado 7 de noviembre"></div>
+              <div class="campo"><label for="f-msg">Contanos del proyecto</label><textarea id="f-msg" rows="2" placeholder="Ej. un sencillo de rap, ya tengo el beat"></textarea></div>
+              <div class="error" id="error" role="alert"></div>
+              <a class="btn" id="enviar" href="https://wa.me/50377471010" target="_blank" rel="noopener">Enviar por WhatsApp →</a>
+              <span class="sticker s-caete" aria-hidden="true">CÁETE</span>
+            </form>
+          </div>
+        </div></div></div>
+      </section>
+    </div>
+    <canvas id="near" aria-hidden="true"></canvas>
+  </div>
+  <div id="fx" aria-hidden="true"></div>
+</div>
 
-    <section id="portfolio" class="py-5 bg-dark">
-        <div class="container py-5">
-            <div class="row mb-5 text-center">
-                <div class="col-12">
-                    <h3 class="section-title">PROYECTOS <span class="accent-text">Destacados</span></h3>
-                    <div class="title-underline"></div>
-                    <p class="text-secondary">Una muestra de nuestra visión de producciones.</p>
-                </div>
-            </div>
+<header>
+  <button class="logo" data-go="inicio" aria-label="Ir al inicio"><b>LACOLO</b><span>PRODUCCIONES</span></button>
+  <nav aria-label="Secciones"><ol id="nav"></ol></nav>
+  <button class="hdr-cta" data-go="contacto">Escribinos</button>
+</header>
 
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="portfolio-item">
-                        <img src="https://img.youtube.com/vi/nkvFabcM0UQ/maxresdefault.jpg" alt="Libre y despeinada"
-                            class="img-fluid">
-                        <div class="portfolio-overlay">
-                            <div class="overlay-content">
-                                <p class="category">MÚSICA URBANA</p>
-                                <h4 class="project-name">Libre y Despeinada</h4>
-                                <p class="small text-white-50">La Cookie 503</p>
-                                <a href="https://youtu.be/nkvFabcM0UQ" target="_blank" class="view-link">REPRODUCIR
-                                    VIDEO</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<footer>
+  <div class="radio" id="radio">
+    <button id="beat" type="button" aria-pressed="false" aria-label="Encender beat"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <div class="txt"><span class="label">Sonando ahorita</span><b id="beat-txt">Beat apagado · tocá para encender</b></div>
+  </div>
+  <div class="flechas">
+    <span class="aqui" id="aqui">Inicio</span>
+    <button id="prev" type="button" aria-label="Sección anterior">←</button>
+    <button id="next" type="button" aria-label="Sección siguiente">→</button>
+  </div>
+</footer>
 
-                <div class="col-md-6 col-lg-4">
-                    <div class="portfolio-item">
-                        <img src="https://img.youtube.com/vi/Eg9GA0urEUU/maxresdefault.jpg" alt="Real Hip Hop"
-                            class="img-fluid">
-                        <div class="portfolio-overlay">
-                            <div class="overlay-content">
-                                <p class="category">HIP HOP</p>
-                                <h4 class="project-name">Esto es Real Hip Hop</h4>
-                                <p class="small text-white-50">Minimo Oner</p>
-                                <a href="https://youtu.be/Eg9GA0urEUU" target="_blank" class="view-link">REPRODUCIR
-                                    VIDEO</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="portfolio-item">
-                        <img src="https://img.youtube.com/vi/VpfCqF4Hs4Y/maxresdefault.jpg" alt="Carpe Diem"
-                            class="img-fluid">
-                        <div class="portfolio-overlay">
-                            <div class="overlay-content">
-                                <p class="category">RAP CULTURAL</p>
-                                <h4 class="project-name">Carpe Diem</h4>
-                                <p class="small text-white-50">Naoko x Sensu</p>
-                                <a href="https://youtu.be/VpfCqF4Hs4Y" target="_blank" class="view-link">REPRODUCIR
-                                    VIDEO</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="portfolio-item">
-                        <img src="./img/natzu.png" alt="Medalla de Honor" class="img-fluid">
-                        <div class="portfolio-overlay">
-                            <div class="overlay-content">
-                                <p class="category">RAP / VFX</p>
-                                <h4 class="project-name">Medalla de Honor</h4>
-                                <p class="small text-white-50">NATSU 🐍</p>
-                                <a href="https://youtu.be/4stTlnJS1RE" target="_blank" class="view-link">REPRODUCIR
-                                    VIDEO</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="servicios" class="py-5 bg-black border-top border-secondary">
-        <div class="container py-5 text-white">
-            <h3 class="section-title text-center mb-5">NUESTROS <span class="accent-text">Servicios</span></h3>
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="service-card p-4 border border-secondary h-100">
-                        <h5 class="text-gold">AUDIO & VOZ</h5>
-                        <ul class="list-unstyled">
-                            <li>Grabación de voz (1-2 pers.): $40</li>
-                            <li>Grabación de voz (3 pers.): $70</li>
-                            <li>Mezcla por canción: $70</li>
-                            <li class="text-white"><strong>Paquete Mezcla + Master: $90</strong></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="service-card p-4 border border-secondary h-100">
-                        <h5 class="text-gold">VIDEO & POST</h5>
-                        <ul class="list-unstyled">
-                            <li>Grabación de video (Hora): $60</li>
-                            <li>Edición de video (Por min): $70</li>
-                            <li>Tomas adicionales (Hora): $50</li>
-                            <li class="text-white"><strong>Music Video Pack: $450</strong></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-5 p-4 bg-dark border-start border-gold">
-                <p class="small mb-0 text-secondary">
-                    <i class="fas fa-info-circle text-gold me-2"></i>
-                    Se requiere un <strong>anticipo del 50%</strong> para reservar fecha. Todos los precios incluyen
-                    revisiones menores.
-                    Descuentos disponibles para clientes frecuentes.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="paquetes" class="py-5 bg-dark">
-        <div class="container py-5">
-            <h3 class="section-title text-center mb-5 text-white">PAQUETES <span class="accent-text">Vip</span></h3>
-            <div class="row g-4 justify-content-center">
-                <div class="col-lg-5">
-                    <div class="package-card featured-package p-5 border border-gold text-white text-center h-100">
-                        <p class="category text-gold">EL MÁS POPULAR</p>
-                        <h3 class="mb-4">Music Video Pack</h3>
-                        <ul class="list-unstyled mb-5">
-                            <li>Grabación de voces (Audio Pro)</li>
-                            <li>Mezcla y Masterización completa</li>
-                            <li>Grabación de videoclip (4 horas)</li>
-                            <li>Edición cinematográfica (3 min)</li>
-                        </ul>
-                        <h2 class="price">$450</h2>
-                        <a href="#contacto" class="btn btn-gold w-100 mt-4">RESERVAR AHORA</a>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="package-card p-5 border border-secondary text-white text-center h-100">
-                        <p class="category">FULL CONTENT</p>
-                        <h3 class="mb-4">All-In Production</h3>
-                        <ul class="list-unstyled mb-5">
-                            <li>Todo lo del Music Video Pack</li>
-                            <li>+ 5 Teasers para redes sociales</li>
-                            <li>Estrategia de expectativa</li>
-                            <li>Prioridad en agenda</li>
-                        </ul>
-                        <h2 class="price">$600</h2>
-                        <a href="#contacto" class="btn btn-outline-light w-100 mt-4 rounded-0">RESERVAR AHORA</a>
-                    </div>
-                </div>
-            </div>
-            <p class="text-center text-secondary mt-5 small">
-                *Se requiere un anticipo del 50% para reservar. Revisión y correcciones menores incluidas.
-            </p>
-        </div>
-    </section>
-
-    <section id="contacto" class="py-5 bg-black">
-        <div class="container py-5 text-white">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 text-center">
-                    <h3 class="section-title">Hablemos de tu <span class="accent-text">Proyecto</span></h3>
-                    <p class="text-secondary mb-5">Envíame un mensaje para coordinar tu próxima sesión.</p>
-
-                    <form id="contactForm" onsubmit="enviarAWhatsApp(event)" class="text-start">
-                        <div class="mb-3">
-                            <input type="text" id="nombre" class="form-control text-white rounded-0 border-secondary"
-                                placeholder="Nombre completo" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" id="email" class="form-control text-white rounded-0 border-secondary"
-                                placeholder="Correo electrónico" required>
-                        </div>
-                        <div class="mb-3">
-                            <select id="servicio"
-                                class="form-select bg-transparent text-white rounded-0 border-secondary" required>
-                                <option value="" disabled selected class="text-dark">Selecciona un servicio...</option>
-                                <option class="text-dark" value="grabacion">Grabación de Voz</option>
-                                <option class="text-dark" value="mezcla">Mezcla + Master</option>
-                                <option class="text-dark" value="videoclip">Music Video Pack ($450)</option>
-                                <option class="text-dark" value="allin">All-In Production ($600)</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <textarea id="mensaje" rows="4" class="form-control text-white rounded-0 border-secondary"
-                                placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
-                        </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-gold py-3 rounded-0 text-white fw-bold">
-                                <i class="bi bi-whatsapp me-2"></i>ENVIAR POR WHATSAPP
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-4 bg-black border-top border-secondary text-center">
-        <p class="small text-secondary mb-0">© 2026 LACOLO Producciones. La Libertad, El Salvador. Diseñado con pasión.
-        </p>
-    </footer>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/app.js"></script>
+<script src="js/app.js"></script>
 </body>
-
 </html>
