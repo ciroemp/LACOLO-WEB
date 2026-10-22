@@ -24,7 +24,12 @@
     document.getElementById('aqui').textContent = names[cur];
     document.getElementById('prev').disabled = cur === 0;
     document.getElementById('next').disabled = cur === N - 1;
+    const oP = document.getElementById('orilla-prev'), oN = document.getElementById('orilla-next');
+    oP.hidden = cur === 0; oN.hidden = cur === N - 1;
+    if (cur > 0) { document.getElementById('orilla-prev-nombre').textContent = names[cur - 1]; oP.setAttribute('aria-label', 'Ir a ' + names[cur - 1]); }
+    if (cur < N - 1) { document.getElementById('orilla-next-nombre').textContent = names[cur + 1]; oN.setAttribute('aria-label', 'Ir a ' + names[cur + 1]); }
     try { history.replaceState(null, '', '#' + ids[cur]); } catch (e) {}
+    if (typeof revisarTodo === 'function') revisarTodo();
   }
 
   const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -54,6 +59,8 @@
   });
   document.getElementById('prev').onclick = () => go(cur - 1);
   document.getElementById('next').onclick = () => go(cur + 1);
+  document.getElementById('orilla-prev').onclick = () => go(cur - 1);
+  document.getElementById('orilla-next').onclick = () => go(cur + 1);
 
   // rueda, teclado, gestos
   let acc = 0, lockUntil = 0;
@@ -255,11 +262,44 @@
     try { navigator.clipboard.writeText('+503 7747-1010').then(ok, fallback); } catch (_) { fallback(); }
   });
 
+  // aviso de "hay más abajo" en cada fachada
+  const walls = sts.map(s => s.querySelector('.wall'));
+  walls.forEach((wall, i) => {
+    const sc = wall.querySelector('.inner');
+    wall.insertAdjacentHTML('beforeend',
+      '<div class="sombra-baja" aria-hidden="true"></div>' +
+      '<div class="riel" aria-hidden="true"><i></i></div>' +
+      '<button class="bajar" type="button" tabindex="-1" aria-hidden="true">' +
+        '<svg class="chev" viewBox="0 0 40 34" width="40" height="34" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M8 6l12 10 12-10"/><path class="b" d="M8 18l12 10 12-10"/></svg></button>');
+    const riel = wall.querySelector('.riel i');
+    const revisar = () => {
+      const max = sc.scrollHeight - sc.clientHeight;
+      const desborda = max > 8;
+      wall.classList.toggle('desborda', desborda);
+      wall.classList.toggle('mas', desborda && sc.scrollTop < max - 24);
+      if (desborda) {
+        const h = Math.max(12, sc.clientHeight / sc.scrollHeight * 100);
+        riel.style.setProperty('--h', h + '%');
+        riel.style.setProperty('--t', (sc.scrollTop / max) * (100 - h) + '%');
+      }
+    };
+    wall._revisar = revisar;
+    sc.addEventListener('scroll', revisar, { passive: true });
+    wall.querySelector('.bajar').addEventListener('click', () => {
+      sc.scrollBy({ top: sc.clientHeight * 0.7, behavior: reduce ? 'auto' : 'smooth' });
+    });
+    sc.querySelectorAll('img').forEach(img => img.addEventListener('load', revisar));
+  });
+  const revisarTodo = () => walls.forEach(w => w._revisar && w._revisar());
+  addEventListener('resize', revisarTodo);
+
   // arranque
   measure();
   const start = Math.max(0, ids.indexOf(location.hash.slice(1)));
   go(start, true); updateUI();
   addEventListener('hashchange', () => { const i = ids.indexOf(location.hash.slice(1)); if (i >= 0) go(i); });
   if (!reduce) requestAnimationFrame(loop); else drawNear(0);
-  if (document.fonts) document.fonts.ready.then(measure);
+  if (document.fonts) document.fonts.ready.then(() => { measure(); revisarTodo(); });
+  revisarTodo();
 })();
